@@ -1,13 +1,14 @@
-import React from "react";
-import Game from "./Game";
-
+import React from 'react'
+import Portfolio from './Portfolio'
+import './App.css'
+import NavBar from './Components/NavBar'
 function App() {
-    return (
-        <div>
-            <h1>My Portfolio</h1>
-            <Game />
-        </div>
-    );
+  return (
+    <div className="App">
+      <NavBar />
+      <Portfolio />
+    </div>
+  )
 }
 
-export default App;
+export default App
