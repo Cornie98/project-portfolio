@@ -6,6 +6,7 @@ import HeroSection from "./Components/HeroSection";
 import AboutSection from "./Components/AboutSection";
 import SkillsSection from "./Components/SkillsSection";
 import ProjectSection from "./Components/ProjectSection";
+import BlogSection from './Components/BlogSection';
 import ContactSection from "./Components/ContactSection";
 import { FaArrowUp } from "react-icons/fa";
 
@@ -105,9 +106,8 @@ const Portfolio = () => {
         setEasterEggCount((prev) => {
             const newCount = prev + 1;
             if (newCount === 7) {
-                document
-                    .querySelector(".hero-title")
-                    .classList.add("party-mode");
+                
+                document.querySelector('.hero-title').classList.add('party-mode');
                 setTimeout(() => {
                     document
                         .querySelector(".hero-title")

@@ -1,182 +1,200 @@
-import "../Portfolio.css";
-import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { TiStarFullOutline } from "react-icons/ti";
+import '../Portfolio.css';
+import { useState } from 'react';
+import { IoLogoJavascript } from 'react-icons/io5';
+import { FaReact, FaHtml5, FaNodeJs, FaGithub, FaLinux, FaUnity } from 'react-icons/fa';
+import { SiPostgresql, SiJest, SiPython, SiGo, SiCplusplus, SiTypescript, SiGodotengine, SiFirebase } from 'react-icons/si';
+import phaserIcon from '../assets/phaser-planet-web.png';
 
 const SkillsSection = () => {
-    const [selectedTab, setSelectedTab] = useState("Frontend");
-    const [visibleSkills, setVisibleSkills] = useState([]);
-    const skillRefs = useRef([]);
-
-    useEffect(() => {
-        setVisibleSkills([]);
-        skillRefs.current = [];
-        const alreadyAnimated = new Set();
-        const observer = new window.IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    const skillName = entry.target.dataset.skillName;
-                    if (
-                        entry.isIntersecting &&
-                        !alreadyAnimated.has(skillName)
-                    ) {
-                        alreadyAnimated.add(skillName);
-                        setVisibleSkills((prev) => {
-                            if (!prev.includes(skillName)) {
-                                return [...prev, skillName];
-                            }
-                            return prev;
-                        });
-                    }
-                });
-            },
-            { threshold: 0.3 }
-        );
-
-        setTimeout(() => {
-            const currentSkills = skills.filter(
-                (skill) => skill.tab === selectedTab
-            );
-            currentSkills.forEach((skill) => {
-                const skillElement = document.querySelector(
-                    `.skill-item[data-skill-name="${skill.name}"]`
-                );
-                if (skillElement) {
-                    observer.observe(skillElement);
-                }
-            });
-        }, 0);
-        return () => {
-            observer.disconnect();
-        };
-    }, [selectedTab]);
-
-    const renderStars = (count, animate) => {
-        return Array.from({ length: 5 }, (_, i) => (
-            <motion.div
-                key={i}
-                initial={{ color: "#e5e7eb" }}
-                animate={{
-                    color: animate && i < count ? "#facc15" : "#e5e7eb",
-                }}
-                transition={{
-                    duration: 0.3,
-                    delay: animate ? i * 0.15 : 0,
-                }}
-                style={{
-                    display: "inline-block",
-                    marginRight: 2,
-                    fontSize: "1.2rem",
-                }}
-            >
-                <TiStarFullOutline />
-            </motion.div>
-        ));
-    };
+    const [selectedTab, setSelectedTab] = useState('Languages');    
 
     const skillTabs = [
-        { label: "Frontend", key: "Frontend" },
-        { label: "Backend", key: "Backend" },
-        { label: "Soft Skills", key: "Soft" },
-        { label: "In Progress", key: "InProgress" },
+        { label: 'Languages', key: 'Languages' },
+        { label: 'Tools', key: 'Tools' },
+        { label: 'In Progress', key: 'InProgress' },
     ];
 
     const skills = [
-        {
-            name: "JavaScript",
-            level: 4,
-            category: "Programming",
-            tab: "Frontend",
+        { 
+            name: 'JavaScript', 
+            icon: <IoLogoJavascript />, 
+            category: 'Programming', 
+            tab: 'Languages',
+            description: 'ES6+, Modern JS, DOM manipulation',
+            brandColor: '#F7DF1E'
         },
-        { name: "React", level: 4, category: "Frontend", tab: "Frontend" },
-        { name: "HTML & CSS", level: 3, category: "Web", tab: "Frontend" },
-        { name: "Phaser.js", level: 2, category: "Web Games", tab: "Frontend" },
-        { name: "Node.js", level: 3, category: "Backend", tab: "Backend" },
-        {
-            name: "SQL & NoSQL",
-            level: 4,
-            category: "Databases",
-            tab: "Backend",
+        { 
+            name: 'Python', 
+            icon: <SiPython />, 
+            category: 'Programming', 
+            tab: 'Languages',
+            description: 'Scripting, Data processing, Automation',
+            brandColor: '#3776AB'
         },
-        {
-            name: "Test Driven Development (Jest, Supertest)",
-            level: 4,
-            category: "Testing",
-            tab: "Backend",
+        { 
+            name: 'C#', 
+            icon: <span style={{ fontSize: '2rem', fontWeight: 'bold' }}>C#</span>, 
+            category: 'Programming', 
+            tab: 'Languages',
+            description: 'Game mechanics, Scripting, 3D development',
+            brandColor: '#239120'
         },
-        {
-            name: "C# & Unity",
-            level: 4,
-            category: "Game Development",
-            tab: "Backend",
+        
+        { 
+            name: 'React', 
+            icon: <FaReact />, 
+            category: 'Frontend Framework', 
+            tab: 'Tools',
+            description: 'Hooks, Context, Component architecture',
+            brandColor: '#61DAFB'
         },
-        { name: "Python", level: 2, category: "Programming", tab: "Backend" },
-        {
-            name: "Git & GitHub",
-            level: 5,
-            category: "Version Control",
-            tab: "Soft",
+        { 
+            name: 'HTML & CSS', 
+            icon: <FaHtml5 />, 
+            category: 'Web Technologies', 
+            tab: 'Tools',
+            description: 'Semantic HTML, CSS Grid, Flexbox',
+            brandColor: '#E34F26'
         },
-        { name: "Linux", level: 3, category: "OS", tab: "Soft" },
-        {
-            name: "Paired Programming",
-            level: 5,
-            category: "Soft Skill",
-            tab: "Soft",
+        { 
+            name: 'Node.js', 
+            icon: <FaNodeJs />, 
+            category: 'Runtime Environment', 
+            tab: 'Tools',
+            description: 'Express.js, REST APIs, Middleware',
+            brandColor: '#339933'
         },
-        { name: "Go", level: 0, category: "Learning", tab: "InProgress" },
-        { name: "C++", level: 0, category: "Learning", tab: "InProgress" },
-        {
-            name: "Typescript",
-            level: 0,
-            category: "Learning",
-            tab: "InProgress",
+        { 
+            name: 'PostgreSQL', 
+            icon: <SiPostgresql />, 
+            category: 'Database', 
+            tab: 'Tools',
+            description: 'Database design, SQL queries, Optimization',
+            brandColor: '#336791'
         },
-        { name: "Godot", level: 0, category: "Learning", tab: "InProgress" },
+        { 
+            name: 'Firebase', 
+            icon: <SiFirebase />, 
+            category: 'Backend Services', 
+            tab: 'Tools',
+            description: 'Authentication, Real-time database, Cloud functions',
+            brandColor: '#FF6B35'
+        },
+        { 
+            name: 'Phaser.js', 
+            icon: <img src={phaserIcon} alt="Phaser.js" style={{ width: '2rem', height: '2rem' }} />,
+            category: 'Game Engine', 
+            tab: 'Tools',
+            description: '2D game development, Sprite management',
+            brandColor: '#87CEEB'
+        },
+        { 
+            name: 'Unity', 
+            icon: <FaUnity />, 
+            category: 'Game Engine', 
+            tab: 'Tools',
+            description: 'Game mechanics, Scripting, 3D development',
+            brandColor: '#000000'
+        },
+        { 
+            name: 'Jest', 
+            icon: <SiJest />, 
+            category: 'Testing Framework', 
+            tab: 'Tools',
+            description: 'Unit testing, Test-driven development',
+            brandColor: '#C21325'
+        },
+        { 
+            name: 'Git & GitHub', 
+            icon: <FaGithub />, 
+            category: 'Version Control', 
+            tab: 'Tools',
+            description: 'Branch management, Collaboration, CI/CD',
+            brandColor: '#181717'
+        },
+        { 
+            name: 'Linux', 
+            icon: <FaLinux />, 
+            category: 'Operating System', 
+            tab: 'Tools',
+            description: 'Command line, Server administration',
+            brandColor: '#FCC624'
+        },
+        
+        { 
+            name: 'Go', 
+            icon: <SiGo />, 
+            category: 'Programming', 
+            tab: 'InProgress',
+            description: 'Concurrent programming, Performance',
+            brandColor: '#00ADD8'
+        },
+        { 
+            name: 'C++', 
+            icon: <SiCplusplus />, 
+            category: 'Programming', 
+            tab: 'InProgress',
+            description: 'Systems programming, Memory management',
+            brandColor: '#00599C'
+        },
+        { 
+            name: 'TypeScript', 
+            icon: <SiTypescript />, 
+            category: 'Programming', 
+            tab: 'InProgress',
+            description: 'Type safety, Advanced JavaScript features',
+            brandColor: '#3178C6'
+        },
+        { 
+            name: 'Godot', 
+            icon: <SiGodotengine />, 
+            category: 'Game Engine', 
+            tab: 'InProgress',
+            description: 'Game engine, GDScript, 2D/3D development',
+            brandColor: '#478CBF'
+        }
     ];
 
-    const filteredSkills = skills.filter((skill) => skill.tab === selectedTab);
+    const filteredSkills = skills.filter(skill => skill.tab === selectedTab);
 
     return (
         <section className="skills section" id="skills">
             <div className="container">
-                <h2 className="section-title animate-on-scroll">
-                    Technical Skills
-                </h2>
-
+                <h2 className="section-title animate-on-scroll">Technical Skills</h2>
                 <div className="skills-tabs">
-                    {skillTabs.map((tab) => (
+                    {skillTabs.map(tab => (
                         <button
                             key={tab.key}
-                            className={`skills-tab${selectedTab === tab.key ? " active" : ""}`}
+                            className={`skills-tab${selectedTab === tab.key ? ' active' : ''}`}
                             onClick={() => setSelectedTab(tab.key)}
                         >
                             {tab.label}
                         </button>
                     ))}
                 </div>
+                
                 <div className="skills-grid">
                     {filteredSkills.map((skill, index) => (
                         <div
                             key={skill.name}
-                            className={`skill-item animate-on-scroll magnetic${visibleSkills.includes(skill.name) ? " visible" : ""}`}
-                            ref={(el) => (skillRefs.current[index] = el)}
-                            data-skill-name={skill.name}
+                            className="skill-item"
+                            style={{
+                                animationDelay: `${index * 0.1}s`
+                            }}
                         >
-                            <div className="skill-header">
-                                <span className="skill-name">{skill.name}</span>
+                            <div 
+                                className="skill-icon"
+                                style={{ 
+                                    color: skill.brandColor,
+                                    borderColor: skill.brandColor 
+                                }}
+                            >
+                                {skill.icon}
                             </div>
-                            <div className="skill-stars-wrapper">
-                                <div className="skill-stars">
-                                    {renderStars(
-                                        skill.level,
-                                        visibleSkills.includes(skill.name)
-                                    )}
-                                </div>
-
-                                <p className="skill-category">
-                                    {skill.category}
-                                </p>
+                            <div className="skill-content">
+                                <h3 className="skill-name">{skill.name}</h3>
+                                <p className="skill-description">{skill.description}</p>
+                                <span className="skill-category">{skill.category}</span>
                             </div>
                         </div>
                     ))}
