@@ -1,5 +1,6 @@
 import '../Portfolio.css';
 import { useState } from 'react';
+import { getAllProjects } from '../data/projectsData';
 
 const BlogSection = () => {
     const [selectedCategory, setSelectedCategory] = useState('All');
@@ -12,64 +13,20 @@ const BlogSection = () => {
         { label: 'Learning', key: 'Learning' },
     ];
 
-    const blogPosts = [
-        {
-            id: 1,
-            title: 'Portfolio Website',
-            category: 'Frontend',
-            date: '2024-01-20',
-            readTime: '3 min read',
-            tags: ['React', 'CSS', 'Portfolio'],
-            status: 'completed',
-            projectId: 1,
-            latestUpdate: {
-                title: 'Skills Section Redesign',
-                excerpt: 'Preview post...'
-            }
-        },
-        {
-            id: 2,
-            title: 'Phaser.js Game Development',
-            category: 'GameDev',
-            date: '2024-01-25',
-            readTime: '4 min read',
-            tags: ['Phaser.js', 'Game Dev', 'JavaScript'],
-            status: 'in-progress',
-            projectId: 2,
-            latestUpdate: {
-                title: 'Platformer Game Progress',
-                excerpt: 'Preview post...'
-            }
-        },
-        {
-            id: 3,
-            title: 'Node.js Backend Architecture',
-            category: 'Backend',
-            date: '2024-01-05',
-            readTime: '6 min read',
-            tags: ['Node.js', 'Express', 'Backend'],
-            status: 'planning',
-            projectId: 3,
-            latestUpdate: {
-                title: 'Architecture Planning',
-                excerpt: 'Preview post...'
-            }
-        },
-        {
-            id: 4,
-            title: 'Go Programming Language',
-            category: 'Learning',
-            date: '2024-01-01',
-            readTime: '4 min read',
-            tags: ['Go', 'Learning', 'Programming'],
-            status: 'learning',
-            projectId: 4,
-            latestUpdate: {
-                title: 'Starting the Go Journey',
-                excerpt: 'Preview post...'
-            }
+    const blogPosts = getAllProjects().map(project => ({
+        id: project.id,
+        title: project.name,
+        category: project.category,
+        date: project.updates[0]?.date || '2024-01-01',
+        readTime: `${project.updates.reduce((total, update) => total + (update.readTime || 0), 0)} min read`,
+        tags: project.tags,
+        status: project.status,
+        projectId: project.id,
+        latestUpdate: {
+            title: project.updates[0]?.title || 'Project Update',
+            excerpt: 'Preview post...'
         }
-    ];
+    }));
 
     const getStatusColor = (status) => {
         switch (status) {
@@ -109,7 +66,6 @@ const BlogSection = () => {
                 <h2 className="section-title animate-on-scroll">Development Logs</h2>
               
                 
-                {/* Latest Posts Horizontal Scroll */}
                 <div className="blog-latest-posts">
                     <h3>Latest Updates</h3>
                     <div className="blog-latest-scroll">
@@ -141,7 +97,7 @@ const BlogSection = () => {
                                 
                                 <div className="blog-latest-footer">
                                     <span className="blog-latest-date">{post.date}</span>
-                                    <span className="blog-latest-link">View Timeline →</span>
+                                    <span className="blog-latest-link">View Dev Logs →</span>
                                 </div>
                             </a>
                         ))}

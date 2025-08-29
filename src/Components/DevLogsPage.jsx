@@ -1,6 +1,7 @@
 import '../Portfolio.css';
 import { useState } from 'react';
-import { FaArrowLeft, FaCalendar, FaTag, FaClock, FaCode, FaRocket, FaBook, FaGamepad } from 'react-icons/fa';
+import { FaArrowLeft, FaCalendar, FaTag, FaClock } from 'react-icons/fa';
+import { getAllProjects } from '../data/projectsData';
 
 const DevLogsPage = () => {
     const [selectedCategory, setSelectedCategory] = useState('All');
@@ -8,118 +9,12 @@ const DevLogsPage = () => {
     
     const blogCategories = [
         { label: 'All', key: 'All' },
-        { label: 'Frontend', key: 'Frontend' },
-        { label: 'Backend', key: 'Backend' },
-        { label: 'Game Dev', key: 'GameDev' },
-        { label: 'Learning', key: 'Learning' },
+        { label: 'Websites', key: 'Websites' },
+        { label: 'Mobile Apps', key: 'Mobile Apps' },
+        { label: 'Games', key: 'Games' },
     ];
 
-    const projects = [
-        {
-            id: 1,
-            name: 'Portfolio Website',
-            category: 'Frontend',
-            description: 'My personal portfolio built with React and modern web technologies',
-            icon: <FaCode />,
-            status: 'completed',
-            tags: ['React', 'CSS', 'Portfolio', 'Frontend'],
-            updates: [
-                {
-                    id: 1,
-                    date: '2024-01-15',
-                    title: 'Initial Portfolio Setup',
-                    content: `
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    `,
-                    readTime: '5 min read',
-                    status: 'completed'
-                },
-                {
-                    id: 2,
-                    date: '2024-01-20',
-                    title: 'Skills Section Redesign',
-                    content: `
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    `,
-                    readTime: '3 min read',
-                    status: 'completed'
-                }
-            ]
-        },
-        {
-            id: 2,
-            name: 'Phaser.js Game Development',
-            category: 'GameDev',
-            description: 'Learning web-based game development with Phaser.js',
-            icon: <FaGamepad />,
-            status: 'in-progress',
-            tags: ['Phaser.js', 'Game Dev', 'JavaScript', '2D'],
-            updates: [
-                {
-                    id: 1,
-                    date: '2024-01-10',
-                    title: 'Getting Started with Phaser.js',
-                    content: `
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    `,
-                    readTime: '8 min read',
-                    status: 'completed'
-                },
-                {
-                    id: 2,
-                    date: '2024-01-25',
-                    title: 'Platformer Game Progress',
-                    content: `
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    `,
-                    readTime: '4 min read',
-                    status: 'in-progress'
-                }
-            ]
-        },
-        {
-            id: 3,
-            name: 'Node.js Backend Architecture',
-            category: 'Backend',
-            description: 'Designing scalable backend services with Node.js and Express',
-            icon: <FaRocket />,
-            status: 'planning',
-            tags: ['Node.js', 'Express', 'Backend', 'Architecture'],
-            updates: [
-                {
-                    id: 1,
-                    date: '2024-01-05',
-                    title: 'Architecture Planning',
-                    content: `
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    `,
-                    readTime: '6 min read',
-                    status: 'planning'
-                }
-            ]
-        },
-        {
-            id: 4,
-            name: 'Go Programming Language',
-            category: 'Learning',
-            description: 'Learning Go for concurrent programming and performance',
-            icon: <FaBook />,
-            status: 'learning',
-            tags: ['Go', 'Learning', 'Programming', 'Concurrency'],
-            updates: [
-                {
-                    id: 1,
-                    date: '2024-01-01',
-                    title: 'Starting the Go Journey',
-                    content: `
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    `,
-                    readTime: '4 min read',
-                    status: 'learning'
-                }
-            ]
-        }
-    ];
+    const projects = getAllProjects();
 
     const filteredProjects = selectedCategory === 'All' 
         ? projects 
@@ -143,12 +38,21 @@ const DevLogsPage = () => {
         }
     };
 
+    const getIconColor = (iconName) => {
+        switch (iconName) {
+            case 'FaGamepad': return '#8b5cf6';
+            case 'FaCode': return '#3b82f6';
+            case 'FaPaperclip': return '#10b981';
+            case 'FaBook': return '#f59e0b';
+            default: return '#6b7280';
+        }
+    };
+
     if (selectedProject) {
         const project = projects.find(p => p.id === selectedProject);
         return (
             <div className="dev-logs-page">
                 <div className="container">
-                    {/* Project Header */}
                     <header className="project-header">
                         <button 
                             className="back-to-projects"
@@ -157,8 +61,8 @@ const DevLogsPage = () => {
                             <FaArrowLeft /> Back to Projects
                         </button>
                         <div className="project-info">
-                            <div className="project-icon" style={{ color: getStatusColor(project.status) }}>
-                                {project.icon}
+                            <div className="project-icon" style={{ color: getIconColor(project.icon.name) }}>
+                                {project.icon()}
                             </div>
                             <div>
                                 <h1>{project.name}</h1>
@@ -173,7 +77,6 @@ const DevLogsPage = () => {
                         </div>
                     </header>
 
-                    {/* Project Updates Timeline */}
                     <div className="project-timeline">
                         {project.updates.map((update, index) => {
                             const { day, month, year } = formatDate(update.date);
@@ -219,7 +122,6 @@ const DevLogsPage = () => {
     return (
         <div className="dev-logs-page">
             <div className="container">
-                {/* Header */}
                 <header className="dev-logs-header">
                     <a href="/" className="back-button">
                         <FaArrowLeft /> Back to Portfolio
@@ -228,7 +130,6 @@ const DevLogsPage = () => {
                     <p>A collection of my development projects with detailed progress timelines</p>
                 </header>
 
-                {/* Category Filter */}
                 <div className="dev-logs-categories">
                     {blogCategories.map(category => (
                         <button
@@ -241,7 +142,6 @@ const DevLogsPage = () => {
                     ))}
                 </div>
 
-                {/* Projects Grid */}
                 <div className="projects-grid">
                     {filteredProjects.map((project) => (
                         <div 
@@ -250,8 +150,8 @@ const DevLogsPage = () => {
                             onClick={() => setSelectedProject(project.id)}
                         >
                             <div className="project-card-header">
-                                <div className="project-icon" style={{ color: getStatusColor(project.status) }}>
-                                    {project.icon}
+                                <div className="project-icon" style={{ color: getIconColor(project.icon.name) }}>
+                                    {project.icon()}
                                 </div>
                                 <span className={`project-status ${project.status}`}>
                                     {project.status}

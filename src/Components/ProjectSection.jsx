@@ -1,5 +1,16 @@
 import "../Portfolio.css";
+import { projectsData } from "../data/projectsData";
+
 const ProjectSection = ({ scrapiPreview, ncPreview }) => {
+    const projectsWithPreviews = projectsData.map(project => {
+        if (project.id === 2) { 
+            return { ...project, previewUrl: ncPreview };
+        } else if (project.id === 3) { 
+            return { ...project, previewUrl: scrapiPreview };
+        }
+        return project;
+    });
+
     return (
         <section className="projects section" id="projects">
             <div className="container">
@@ -7,59 +18,7 @@ const ProjectSection = ({ scrapiPreview, ncPreview }) => {
                     Featured Projects
                 </h2>
                 <div className="projects-grid">
-                    {[
-                        {
-                            title: "Florist Fables",
-                            description:
-                                "Unity-based 2D mobile florist management game",
-                            tech: ["Unity", "C#", "2D Physics"],
-                            status: "Live Demo",
-                            previewType: "image",
-                            previewUrl:
-                                "https://via.placeholder.com/400x250/87CEEB/2d3748?text=2D+Platformer+Game",
-                            demoUrl: "#",
-                            codeUrl: "#",
-                        },
-                        {
-                            title: "NC News",
-                            description:
-                                "A full-stack app where users can browse articles, post and leave likes and comments",
-                            tech: [
-                                "React.js",
-                                "Node.js",
-                                "Express",
-                                "PostgreSQL",
-                            ],
-                            status: "Live",
-                            previewType: "image",
-                            previewUrl: ncPreview,
-                            demoUrl: "https://connie-nc-news.netlify.app/",
-                            codeUrl: "https://github.com/Cornie98/NC-News-App",
-                        },
-                        {
-                            title: "Scrapibook",
-                            description:
-                                "A playful digital scrapbook for creative expression and memory keeping.",
-                            tech: ["React.js", "Konva.js", "CSS", "Firebase"],
-                            status: "Live",
-                            previewType: "image",
-                            previewUrl: scrapiPreview,
-                            demoUrl: "https://scrapibook.netlify.app/",
-                            codeUrl: "https://github.com/nelsonholtz/Scrapi-fe",
-                        },
-                        {
-                            title: "Junk Invaders!",
-                            description:
-                                "Phaser.js pixel art space invaders clone",
-                            tech: ["Phaser.js", "React", "WebGL"],
-                            status: "In Progress",
-                            previewType: "image",
-                            previewUrl:
-                                "https://codepen.io/cornie98/embed/preview/abcdef?default-tab=result&theme-id=dark",
-                            demoUrl: "#",
-                            codeUrl: "#",
-                        },
-                    ].map((project, index) => (
+                    {projectsWithPreviews.map((project, index) => (
                         <div
                             key={project.title}
                             className="project-card animate-on-scroll magnetic"

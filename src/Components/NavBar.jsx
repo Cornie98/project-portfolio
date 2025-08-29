@@ -25,7 +25,7 @@ const NavBar = () => {
 
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#blog">Dev Logs</a></li>
+        <li><a href="/dev-logs">Dev Logs</a></li>
         <li><a href="#contact">Contact</a></li>
         <li>
           <a href="/path/to/your-cv.pdf" download>
